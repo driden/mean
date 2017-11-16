@@ -1,13 +1,11 @@
-/*
-const express = require('express')
-const app = express()
+exports.render = (req,res) => { 
+    if (req.session.lastVisit)
+        console.log(req.session.lastVisit)
 
-app.use('/',(req,res)=>{res.status(200).send('Hello World')})
-
-app.listen(3000)
-
-console.log('Server running at http://localhost:3000')
-
-module.exports = app
-*/
-exports.render = (req,res) => res.status(200).send('Hello World')
+    req.session.lastVisit = new Date()   
+    
+    res.render(
+        'index', {
+            title: 'Hello World'
+    })
+}
