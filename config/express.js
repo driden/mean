@@ -1,4 +1,5 @@
 const config = require('./config')
+const mongoose = require('mongoose')
 const express = require('express')
 const morgan = require('morgan')
 const compress = require('compression')
@@ -25,6 +26,7 @@ module.exports = () => {
     app.set('view engine', 'ejs')
 
     require('../app/routes/index.server.routes')(app)
+    require('../app/routes/users.server.routes')(app)
 
     app.use(express.static('./public'))
     return app
