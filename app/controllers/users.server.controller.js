@@ -41,3 +41,11 @@ exports.update = (req, res, next) => {
             res.status(200).json(user)
     })
 }
+
+exports.delete = (req, res, next) => {
+    req.user.remove(err => {
+        if (err) return next;
+        else
+            res.status(200).json(req.user)
+    })
+}
