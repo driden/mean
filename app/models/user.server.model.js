@@ -1,4 +1,4 @@
-import { Buffer } from 'buffer';
+const Buffer = require('buffer').Buffer
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
@@ -75,7 +75,20 @@ UserSchema.methods.hashPassword = (password) =>
 
 UserSchema.methods.authenticate = (password) => this.password === this.hashPassword(this.password)
 
-UserSchema.statics.findOneByUsername = (username, callback) => this.findOne( {username: new RegExp(username, 'i')}, callback)
-UserSchema.methods.authenticate = (password) => this.password === password
-UserSchema.set('toJSON',{getters:true})
+UserSchema.statics.findUniqueUsername = 
+    (username, suffix, callback) =>{
+        let possibleUsername = username + (suffix || '')
+        this.findOne({username: possibleUsername},
+        (err,user)=>{
+            if(!err){
+                if(!user)
+                    callback(possibleUsername)
+                else
+                    return this.findUniqueUsername(username,(suffix || 0),1,callback)
+            }else
+                callback(null)
+        })
+}  
+
+UserSchema.set('toJSON',{getters:true, virtuals:true})
 mongoose.model('User',UserSchema)
