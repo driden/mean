@@ -2,6 +2,7 @@ const passport = require('passport')
 const mongoose = require('mongoose')
 
 module.exports = () => {
+
     const User = mongoose.model('User')
 
     passport.serializeUser(
@@ -15,6 +16,6 @@ module.exports = () => {
             )
         }
     )
-
+    
     require('./strategies/local')()
 }

@@ -14,5 +14,5 @@ module.exports = (app) => {
             failureFlash: true
         }))
 
-    app.get('signout', users.signout)
+    app.get('/signout', users.signout)
 }

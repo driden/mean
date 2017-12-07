@@ -29,7 +29,7 @@ module.exports = () => {
 
     app.use(flash())
     app.use(passport.initialize())
-    app.use(passport.session)
+    app.use(passport.session())
 
     require('../app/routes/index.server.routes')(app)
     require('../app/routes/users.server.routes')(app)

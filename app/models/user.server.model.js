@@ -1,6 +1,7 @@
-const Buffer = require('buffer').Buffer
-
+const crypto = require('crypto');
 const mongoose = require('mongoose')
+const Buffer = require('buffer').Buffer
+const passwordSalt = require('./salt')
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
@@ -54,32 +55,42 @@ const UserSchema = new Schema({
     }
 
 })
+
+UserSchema.methods.hashPassword = function(password) {
+    let buffedSalt = Buffer.from(passwordSalt,'utf8')
+    const hashed =crypto.pbkdf2Sync(password, buffedSalt, 10000,64,'sha512').toString('base64')
+    console.log("password: " + password + " hash: "+ hashed)
+    return hashed
+}
+
 UserSchema.virtual('fullName')
-    .get(() => this.firstName + ' ' + this.lastName)
-    .set((fullName) => {
+    .get(function(){
+        return this.firstName + ' ' + this.lastName
+    })
+    .set(function (fullName) {
         const splitName = fullName.split(' ')
         firstName = splitName[0] || ''
         lastName = splitName[1] || ''
     })
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function(next) {
     if (this.password){
-        this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),'base64')
+        //this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),'base64')
         this.password = this.hashPassword(this.password)
     }
     next()
 })
 
-UserSchema.methods.hashPassword = (password) => 
-    crypto.pbkdf2sync(password, this.salt, 10000,64).toString('base64')
-
-UserSchema.methods.authenticate = (password) => this.password === this.hashPassword(this.password)
+UserSchema.methods.authenticate = 
+        function (password) {
+            return this.password === this.hashPassword(password)
+        }
 
 UserSchema.statics.findUniqueUsername = 
-    (username, suffix, callback) =>{
+    function (username, suffix, callback) {
         let possibleUsername = username + (suffix || '')
         this.findOne({username: possibleUsername},
-        (err,user)=>{
+            function (err,user) {
             if(!err){
                 if(!user)
                     callback(possibleUsername)
@@ -87,8 +98,9 @@ UserSchema.statics.findUniqueUsername =
                     return this.findUniqueUsername(username,(suffix || 0),1,callback)
             }else
                 callback(null)
-        })
-}  
+            }
+        )
+}
 
 UserSchema.set('toJSON',{getters:true, virtuals:true})
 mongoose.model('User',UserSchema)
