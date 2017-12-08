@@ -70,7 +70,7 @@ exports.signout = (req, res) => {
 exports.saveOAuthUserProfile = function(req, profile, done){
     User.findOne({
         provider : profile.provider,
-        providerId: provider.providerId
+        providerId: profile.providerId
     }, (err, user) =>{
         
         if(err) return done(err)
@@ -82,7 +82,7 @@ exports.saveOAuthUserProfile = function(req, profile, done){
             User.findUniqueUsername(possibleUsername,null, (availableUsername) => {
                 const newUser = new User(profile)
                 newUser.username = availableUsername
-                newuser.save((err) => {
+                newUser.save((err) => {
                     return done(err, newUser)
                 })
             })
