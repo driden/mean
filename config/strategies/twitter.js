@@ -1,4 +1,4 @@
-const password = require('passport')
+const passport = require('passport')
 const url = require('url')
 const TwitterStrategy = require('passport-twitter').Strategy
 const config = require('../config')
@@ -25,6 +25,6 @@ module.exports = function() {
             providerData: providerData
         }
 
-        users.saveOAuthUserProfile(req, providerUserProfile,done);
+        user.saveOAuthUserProfile(req, providerUserProfile,done);
     }))
 }

@@ -65,7 +65,9 @@ UserSchema.methods.hashPassword = function(password) {
 
 UserSchema.virtual('fullName')
     .get(function(){
-        return this.firstName + ' ' + this.lastName
+        let full = this.firstName + ' ' + this.lastName
+        if(typeof this.firstName === "undefined") full = this.username
+        return full
     })
     .set(function (fullName) {
         const splitName = fullName.split(' ')

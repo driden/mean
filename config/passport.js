@@ -19,4 +19,5 @@ module.exports = () => {
     
     require('./strategies/local')()
     require('./strategies/facebook')()
+    require('./strategies/twitter')()
 }
