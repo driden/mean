@@ -4,7 +4,11 @@
   "description": "My Frist MEAN app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "app": "node server",
+    "start": "concurrently \"npm run tsc:w\" \"npm run app\"",
+    "postinstall": "typings install"
   },
   "repository": {
     "type": "git",
@@ -24,12 +28,21 @@
   },
   "homepage": "https://github.com/driden/mean#readme",
   "dependencies": {
-    "express": "4.14.0",
-    "express-session": "1.14.1",
+    "@angular/common": "5.1.0",
+    "@angular/compiler": "5.1.0",
+    "@angular/core": "5.1.0",
+    "@angular/forms": "5.1.0",
+    "@angular/http": "5.1.0",
+    "@angular/platform-browser": "5.1.0",
+    "@angular/platform-browser-dynamic": "5.1.0",
+    "@angular/router": "5.1.0",
     "body-parser": "1.15.2",
+    "core-js": "2.5.3",
     "compression": "1.6.0",
     "connect-flash": "0.1.1",
     "ejs": "2.5.2",
+    "express": "4.14.0",
+    "express-session": "1.14.1",
     "method-override": "2.3.6",
     "mongoose": "4.6.5",
     "morgan": "1.7.0",
@@ -37,6 +50,16 @@
     "passport-local": "1.0.0",
     "passport-facebook": "2.1.1",
     "passport-twitter": "1.0.4",
-    "passport-google-oauth": "1.0.0"
+    "passport-google-oauth": "1.0.0",
+    "reflect-metadata": "0.1.10",
+    "rxjs": "5.5.5",
+    "systemjs": "0.20.19",
+    "zone.js": "0.8.18"
+  },
+  "devDependencies": {
+    "concurrently": "3.5.1",
+    "traceur": "0.0.111",
+    "typescript": "2.6.2",
+    "typings": "2.1.1"
   }
 }
