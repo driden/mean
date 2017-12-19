@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%=title%></title>        
+        <title><%=title%></title>
+        <base href="/">
     </head>
     <body>
-        <% if (userFullName) { %>
-            <h2>Hello <%=userFullName %></h2>
-            <a href="/signout">Sign out</a>
-        <%} else { %>
-            <a href="/signup">Sign up</a>
-            <a href="/signin">Sign in</a>
-        <% } %>
-        <br>
-        <img src="img/logo.png" alt="Logo">        
+        <mean-app><h1>Loading...</h1></mean-app>
+        
+        <script type="text/javascript">
+            window.user = <%- user || 'null' %>
+        </script>
+
+        <img src="img/logo.png" alt="Logo">
+        <script src="lib/core-js/client/shim.min.js"></script>
+        <script src="lib/zone.js/dist/zone.js"></script>
+        <script src="lib/reflect-metadata/Reflect.js"></script>
+        <script src="lib/systemjs/dist/system.js"></script>
+
+        <script src="systemjs.config.js"></script>
+        <script>
+            System.import('app').catch(function(err){console.error(err)})
+        </script>
     </body>
 </html>

@@ -22,6 +22,25 @@ function getErrorMessage(err) {
     return message
 }
 
+exports.signin = (req,res,next) => {
+    passport.authenticate('local', (err,user,info) => {
+        if (err || user){
+            res.status(400).send(info)
+        } else {
+            user.password = undefined
+            user.salt = undefined
+
+            req.login(user, (err) => {
+                if (err){
+                    res.status(400).send(err)
+                } else {
+                    res.json(user)
+                }
+            })
+        }
+    }) (req, res, next)
+}
+
 exports.renderSignin = (req, res, next) => {
     if (!req.user)
         res.render('signin', {
@@ -83,6 +102,11 @@ exports.saveOAuthUserProfile = function(req, profile, done){
                 const newUser = new User(profile)
                 newUser.username = availableUsername
                 newUser.save((err) => {
+                    if (err) {
+                        const message = _this.getErrorMessage(err)
+                        req.flash('error',message)
+                        return res.redirect('/signup')
+                    }
                     return done(err, newUser)
                 })
             })

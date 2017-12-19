@@ -8,6 +8,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
 const flash = require('connect-flash')
+const path = require('path')
 
 module.exports = () => {
     const app = express()
