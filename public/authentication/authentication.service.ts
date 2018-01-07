@@ -9,34 +9,34 @@ export class AuthenticationService {
 
     private _signInUrl = 'api/auth/signin'
     private _signUpUrl = 'api/auth/signup'
-    constructor(private http: Http){
+    constructor(private http: Http) {
 
     }
 
-    isLoggedIn():boolean {
+    isLoggedIn(): boolean {
         return !!this.user
     }
 
-   private doPost(entity: any, endpoint: string): Observable<any>{
+    private doPost(entity: any, endpoint: string): Observable<any> {
         let body = JSON.stringify(entity)
-        let headers = new Headers({'Content-Type':'application/json'})
-        let options = new RequestOptions({headers: headers})
+        let headers = new Headers({ 'Content-Type': 'application/json' })
+        let options = new RequestOptions({ headers: headers })
 
         return this.http
-            .post(endpoint,body,options)
+            .post(endpoint, body, options)
             .map(res => this.user = res.json())
             .catch(this.handleError)
     }
 
-    signin(credentials: any) : Observable<any> {
-        return this.doPost(credentials,this._signInUrl)
+    signin(credentials: any): Observable<any> {
+        return this.doPost(credentials, this._signInUrl)
     }
 
-    signup(user: any) : Observable<any> {
-        return this.doPost(user,this._signUpUrl)
+    signup(user: any): Observable<any> {
+        return this.doPost(user, this._signUpUrl)
     }
 
-    private handleError(error: Response){
+    private handleError(error: Response) {
         console.error(error)
         return Observable.throw(error.json().message || 'Server error')
     }

@@ -8,7 +8,7 @@
     "tsc:w": "tsc -w",
     "app": "node server",
     "start": "concurrently \"npm run tsc:w\" \"npm run app\"",
-    "postinstall": "typings install"
+    "postinstall": "npm install types"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,7 @@
     "core-js": "2.5.3",
     "compression": "1.6.0",
     "connect-flash": "0.1.1",
-    "ejs": "2.5.2",
+    "ejs": "2.5.5",
     "express": "4.14.0",
     "express-session": "1.14.1",
     "method-override": "2.3.6",
@@ -52,14 +52,14 @@
     "passport-twitter": "1.0.4",
     "passport-google-oauth": "1.0.0",
     "reflect-metadata": "0.1.10",
-    "rxjs": "5.5.5",
-    "systemjs": "0.20.19",
+    "rxjs": "5.5.6",
+    "systemjs": "^0.20.19",
     "zone.js": "0.8.18"
   },
   "devDependencies": {
     "concurrently": "3.5.1",
     "traceur": "0.0.111",
     "typescript": "2.6.2",
-    "typings": "2.1.1"
+    "types":"0.1.1"
   }
 }

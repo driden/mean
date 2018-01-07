@@ -1,8 +1,8 @@
 exports.render = (req,res) => { 
     const user = (!req.user) ? null : {
-        _id = req.user.id,
-        firstName = req.user.firstName,
-        lastName = req.user.lastName
+        _id : req.user.id,
+        firstName : req.user.firstName,
+        lastName : req.user.lastName
     }
     
     res.render(

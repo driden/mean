@@ -6,7 +6,11 @@
         "sourceMap": true,
         "emitDecoratorMetadata": true,
         "removeComments": false,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "experimentalDecorators": true,
+        "lib": [
+            "es2015.promise" // Or "es2015" or "es6" should work as well
+        ]
     },
     "exclude": [
         "node_modules",
